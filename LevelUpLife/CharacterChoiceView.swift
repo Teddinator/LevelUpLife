@@ -9,7 +9,17 @@ import SwiftUI
 
 struct CharacterChoiceView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            HStack(spacing: 10){
+                ForEach(0..<3, id: \.self) { number in
+                    Button(action:{}, label: {Text("Character \(1)")})
+                }
+            }
+        
+            Spacer()
+        }
+        .padding(.vertical, 100)
+        .navigationBarBackButtonHidden()
     }
 }
 

@@ -12,26 +12,25 @@ struct ContentView: View {
         NavigationStack {
             ZStack{
                 //-MARK: Background
-                LinearGradient(colors: [Color.blue, Color.pink], startPoint: .bottom, endPoint: .top)
+                LinearGradient(colors: [Color.blue, Color.green], startPoint: .bottom, endPoint: .top)
                     .ignoresSafeArea()
                 
                 //-MARK: Content
                 VStack(alignment: .leading, spacing: 10){
                     Text("The app that will take your life to the next level \n Are you ready to level up?")
                     Text("")
-                    Button(action: {
-                        
-                    }, label: {
+                    NavigationLink(destination: CharacterChoiceView()){
                         Text("Get Started")
                             .foregroundStyle(.black)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 10)
                         
                     }
-                    )
                     .buttonStyle(.bordered)
                     .buttonBorderShape(.capsule)
                 }
             }
-            .navigationTitle("LevelUpLife")
+            .navigationTitle("LevelUp Adventure")
         }
     }
 }
