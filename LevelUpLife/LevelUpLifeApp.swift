@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 @main
 struct LevelUpLifeApp: App {
     var body: some Scene {

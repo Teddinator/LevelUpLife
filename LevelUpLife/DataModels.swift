@@ -6,17 +6,34 @@
 //
 
 import Foundation
+import Observation
 
-struct GameCharacter: Identifiable, Codable {
-    let id: UUID
-    var imageName: String
+@Observable
+class GameCharacter: Identifiable {
+    var id: UUID
     var name: String
-    var description: String
+    var charDescripton: String
     
     var xp: Int
     var health: Int
     var fightPower: Int
     var magicPower: Int
+    
+    init(id: UUID = UUID(), name: String, charDescription: String, xp: Int, health: Int, fightPower: Int, magicPower: Int) {
+        self.id = id
+        self.name = name
+        self.charDescripton = charDescription
+        self.xp = xp
+        self.health = health
+        self.fightPower = fightPower
+        self.magicPower = magicPower
+    }
+    
+    static let developerPreview: [GameCharacter] = [
+        GameCharacter(name: "Mage", charDescription: "A mage that can throw fireballs", xp: 0, health: 200, fightPower: 100, magicPower: 300),
+        GameCharacter(name: "Fighter", charDescription: "A ruthless and instinctive killer", xp: 0, health: 250, fightPower: 300, magicPower: 50),
+        GameCharacter(name: "Tank", charDescription: "An immovable beast" , xp: 0, health: 400, fightPower: 150, magicPower: 50)
+        ]
 }
 
 struct WeeklyTask: Identifiable, Codable {
