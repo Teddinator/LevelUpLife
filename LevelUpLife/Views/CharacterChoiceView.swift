@@ -10,9 +10,11 @@ import SwiftUI
 struct CharacterChoiceView: View {
     let characters = GameCharacter.developerPreview
     @State private var selectedIndex = 0
+    @AppStorage("selectedCharacterName") private var selectedCharacterName = ""
     var selectedCharacter: GameCharacter {
         characters[selectedIndex]
     }
+    
     var body: some View {
         VStack(alignment: .center) {
             TabView(selection: $selectedIndex) {
@@ -23,7 +25,7 @@ struct CharacterChoiceView: View {
                         Image(character.name.lowercased())
                             .resizable()
                             .scaledToFit()
-                            .frame(height: 150)
+                            .frame(height: 250)
                         
                         Text(character.name)
                             .font(.title)
@@ -58,8 +60,25 @@ struct CharacterChoiceView: View {
             
             //Character description
             Text("\(character.charDescripton)")
-                .padding(15)
+                .padding(20)
             
+            Spacer()
+            NavigationLink {
+                ModuleSelectorView()
+            } label: {
+                Text("Choose \(character.name)")
+                    .font(.headline)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(.blue)
+                    .foregroundStyle(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .padding(.horizontal)
+                
+            }
+            .simultaneousGesture(TapGesture().onEnded {
+                selectedCharacterName = selectedCharacter.name
+            })
             Spacer()
         }
         .padding(.vertical, 100)

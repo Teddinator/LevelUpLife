@@ -57,7 +57,7 @@ struct DailyTask: Identifiable, Codable {
     var title: String
     var xpReward: Int
     var date: Date
-    var isCompleted: Bool
+    var isCompleted: Bool = false
     
     func isForToday(using calendar: Calendar = .current) -> Bool {
         calendar.isDateInToday(date)
@@ -66,7 +66,45 @@ struct DailyTask: Identifiable, Codable {
 
 struct Module: Identifiable, Codable {
     let id: UUID
-    var title: String
+    let name: String
     var weeklyTasks: [WeeklyTask]
     var dailyTask: DailyTask?
+    
+    static let developerPreview: [Module] = [
+        Module(id: UUID(), name: "Training", weeklyTasks: [
+            WeeklyTask(
+                id: UUID(),
+                title: "Workout",
+                amountRequired: 3, amountCompleted: 0,
+                weekStartDate: Date()
+            )
+        ],
+            dailyTask: DailyTask(
+                id: UUID(),
+                title: "Do 10 pushups",
+                xpReward: 20,
+                date: Date(),
+                isCompleted: false
+            )
+        ),
+        Module(id: UUID(),
+               name: "Study",
+               weeklyTasks: [
+                WeeklyTask(
+                    id: UUID(),
+                    title: "Study session",
+                    amountRequired: 5,
+                    amountCompleted: 0,
+                    weekStartDate: Date()
+                )
+               ],
+              dailyTask: DailyTask(
+                id: UUID(),
+                title: "Read 10 pages",
+                xpReward: 15,
+                date: Date(),
+                isCompleted: false
+              )
+              )
+    ]
 }

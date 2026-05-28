@@ -9,72 +9,93 @@ import SwiftData
 import SwiftUI
 
 struct ModuleView: View {
+    let module: Module
+    
+    @AppStorage("selectedCharacterName") private var selectedCharacterName = ""
+    
+    var selectedCharacter: GameCharacter? {
+        GameCharacter.developerPreview.first { $0.name == selectedCharacterName }
+    }
     
     var body: some View {
         VStack(alignment: .center){
-            Image(.mage)
-                .resizable()
-                .scaledToFit()
-            Text("Stats")
+            
+            if let character = selectedCharacter{
+                Image(character.name.lowercased())
+                    .resizable()
+                    .scaledToFit()
+                Text("Stats")
+                    .font(.title)
+                    .fontWeight(.bold)
+                HStack {
+                    Text("Health").font(.headline)
+                    Spacer()
+                    Text("Fight Power").font(.headline)
+                    Spacer()
+                    Text("Magic Power").font(.headline)
+                }
+                .padding(.horizontal, 20)
+                
+                HStack {
+                    Text("\(character.health)")
+                        .font(.headline)
+                    
+                    Spacer()
+                    
+                    Text("\(character.fightPower)")
+                        .font(.headline)
+                    
+                    Spacer()
+                    
+                    Text("\(character.magicPower)")
+                        .font(.headline)
+                    
+                    Spacer()
+                    
+                }
+                .padding(.horizontal, 20)
+            } else {
+                Text("No character selected")
+            }
+            
+            Text("Daily Task")
                 .font(.title)
                 .fontWeight(.bold)
-            HStack(alignment: .center){
-                Text("Health")
-                    .font(.headline)
-                
-                Spacer()
-                
-                Text("Fight Power")
-                    .font(.headline)
-                
-                Spacer()
-                
-                Text("Magic Power")
-                    .font(.headline)
+            if let dailyTask = module.dailyTask{
+                Button(dailyTask.title) {
+                    
+                }
+                .padding()
+            } else {
+                Text("No daily task")
+                    .foregroundStyle(.secondary)
             }
-            .padding(.horizontal, 20)
-        }
-        
-        HStack(alignment: .center){
-            Text("0")
-                .font(.headline)
             
+            Text("Weekly Tasks")
+                .font(.title)
+                .fontWeight(.bold)
+            
+            ForEach(module.weeklyTasks) { task in
+                Button{
+                    
+                } label: {
+                    HStack{
+                        Text(task.title)
+                        Spacer()
+                        Text("\(task.amountCompleted)/\(task.amountRequired)")
+                    }
+                    .padding()
+                    .background(.gray.opacity(0.15))
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                }
+                .padding(.horizontal)
+            }
             Spacer()
-            
-            Text("0")
-                .font(.headline)
-            
-            Spacer()
-            
-            Text("0")
-                .font(.headline)
-            
-            Spacer()
-            
         }
-        .padding(.horizontal, 20)
-        
-        Text("Daily Task")
-            .font(.title)
-            .fontWeight(.bold)
-        
-        Button("Placeholder") {
-            
-        }
-        .padding()
-        
-        Text("Weekly Tasks")
-            .font(.title)
-            .fontWeight(.bold)
-        ForEach(0..<3, id: \.self) { task in
-            Button("OK") {}
-        }
-        .padding()
-        Spacer()
     }
 }
 
 
 #Preview {
-    ModuleView()
+    ModuleView(module: Module.developerPreview[0])
 }

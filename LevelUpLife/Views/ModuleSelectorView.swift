@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ModuleSelectorView: View {
     
+    let modules = Module.developerPreview
+    
     let columns = [
         GridItem(.flexible(), spacing: 10),
         GridItem(.flexible(), spacing: 10)
@@ -24,16 +26,33 @@ struct ModuleSelectorView: View {
                 Spacer()
                 ScrollView{
                     LazyVGrid(columns: columns, spacing: 10) {
-                        ForEach(0..<8, id:\.self) { number in
-                            Button(action: {},
-                                   label: {
-                                Text("button \(number)")
+                        
+                        ForEach(modules) { module in
+                            NavigationLink {
+                                ModuleView(module: module)
+                            } label: {
+                                Text(module.name)
                                     .frame(maxWidth: .infinity)
                                     .frame(height: 50)
                                     .foregroundStyle(.cyan)
                                     .padding(15)
                             }
-                            )
+                            .buttonStyle(.glass)
+                            .buttonBorderShape(.capsule)
+                            .foregroundStyle(.black)
+                            .padding(15)
+                        }
+                        
+                        ForEach(0..<(8 - modules.count), id: \.self) { number in
+                            Button {
+                                
+                            } label: {
+                                Text("Coming Soon")
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 50)
+                                    .foregroundStyle(.cyan)
+                                    .padding(15)
+                            }
                             .buttonStyle(.glass)
                             .buttonBorderShape(.capsule)
                             .foregroundStyle(.black)
@@ -49,6 +68,7 @@ struct ModuleSelectorView: View {
                 .scaledToFill()
                 .ignoresSafeArea()
         }
+        .navigationBarBackButtonHidden()
     }
 }
 }
