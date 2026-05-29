@@ -10,7 +10,7 @@ import SwiftUI
 struct CharacterChoiceView: View {
     let characters = GameCharacter.developerPreview
     @State private var selectedIndex = 0
-    @AppStorage("selectedCharacterName") private var selectedCharacterName = ""
+    @Environment(PlayerStore.self) private var playerStore
     var selectedCharacter: GameCharacter {
         characters[selectedIndex]
     }
@@ -77,7 +77,7 @@ struct CharacterChoiceView: View {
                 
             }
             .simultaneousGesture(TapGesture().onEnded {
-                selectedCharacterName = selectedCharacter.name
+                playerStore.chooseCharacter(selectedCharacter)
             })
             Spacer()
         }

@@ -10,9 +10,11 @@ import SwiftUI
 
 @main
 struct LevelUpLifeApp: App {
+    @State private var playerStore = PlayerStore()
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
+        .environment(playerStore)
     }
 }

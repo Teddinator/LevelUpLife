@@ -6,10 +6,8 @@
 //
 
 import Foundation
-import Observation
 
-@Observable
-class GameCharacter: Identifiable {
+struct GameCharacter: Identifiable, Codable {
     var id: UUID
     var name: String
     var charDescripton: String
@@ -28,16 +26,10 @@ class GameCharacter: Identifiable {
         self.fightPower = fightPower
         self.magicPower = magicPower
     }
-    
-    static let developerPreview: [GameCharacter] = [
-        GameCharacter(name: "Mage", charDescription: "A mage that can throw fireballs", xp: 0, health: 200, fightPower: 100, magicPower: 300),
-        GameCharacter(name: "Fighter", charDescription: "A ruthless and instinctive killer", xp: 0, health: 250, fightPower: 300, magicPower: 50),
-        GameCharacter(name: "Tank", charDescription: "An immovable beast" , xp: 0, health: 400, fightPower: 150, magicPower: 50)
-        ]
 }
 
 struct WeeklyTask: Identifiable, Codable {
-    let id: UUID
+    var id: UUID
     var title: String
     var amountRequired: Int
     var amountCompleted: Int
@@ -53,7 +45,7 @@ struct WeeklyTask: Identifiable, Codable {
 }
 
 struct DailyTask: Identifiable, Codable {
-    let id: UUID
+    var id: UUID = UUID()
     var title: String
     var xpReward: Int
     var date: Date
@@ -65,7 +57,7 @@ struct DailyTask: Identifiable, Codable {
 }
 
 struct Module: Identifiable, Codable {
-    let id: UUID
+    var id: UUID
     let name: String
     var weeklyTasks: [WeeklyTask]
     var dailyTask: DailyTask?
@@ -107,4 +99,12 @@ struct Module: Identifiable, Codable {
               )
               )
     ]
+}
+
+extension GameCharacter {
+    static let developerPreview: [GameCharacter] = [
+        GameCharacter(name: "Mage", charDescription: "A mage that can throw fireballs", xp: 0, health: 200, fightPower: 100, magicPower: 300),
+        GameCharacter(name: "Fighter", charDescription: "A ruthless and instinctive killer", xp: 0, health: 250, fightPower: 300, magicPower: 50),
+        GameCharacter(name: "Tank", charDescription: "An immovable beast" , xp: 0, health: 400, fightPower: 150, magicPower: 50)
+        ]
 }

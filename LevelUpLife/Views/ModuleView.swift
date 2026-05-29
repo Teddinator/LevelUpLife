@@ -5,25 +5,28 @@
 //  Created by Theodor Nilsson on 2026-05-26.
 //
 
-import SwiftData
 import SwiftUI
 
 struct ModuleView: View {
     let module: Module
     
-    @AppStorage("selectedCharacterName") private var selectedCharacterName = ""
-    
-    var selectedCharacter: GameCharacter? {
-        GameCharacter.developerPreview.first { $0.name == selectedCharacterName }
-    }
+    @Environment(PlayerStore.self) private var playerStore
     
     var body: some View {
         VStack(alignment: .center){
             
-            if let character = selectedCharacter{
+            if let character = playerStore.character{
                 Image(character.name.lowercased())
                     .resizable()
                     .scaledToFit()
+                
+                Text(character.name)
+                    .font(.largeTitle)
+                    .bold()
+                
+                //TODO: Göra EN XP bar
+                Text("XP \(character.xp)/100")
+                
                 Text("Stats")
                     .font(.title)
                     .fontWeight(.bold)
@@ -98,4 +101,5 @@ struct ModuleView: View {
 
 #Preview {
     ModuleView(module: Module.developerPreview[0])
+        .environment(PlayerStore())
 }
