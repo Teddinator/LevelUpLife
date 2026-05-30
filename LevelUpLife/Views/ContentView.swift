@@ -8,33 +8,42 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(PlayerStore.self) var playerStore
     var body: some View {
         NavigationStack {
-            ZStack{
-                //-MARK: Background
-                LinearGradient(colors: [Color.blue, Color.green], startPoint: .bottom, endPoint: .top)
-                    .ignoresSafeArea()
+            //TODO: Aktivera när koden ska publiceras
+//            if playerStore.character != nil {
+//                ModuleSelectorView()
+//            } else {
                 
-                //-MARK: Content
-                VStack(alignment: .leading, spacing: 10){
-                    Text("The app that will take your life to the next level \n Are you ready to level up?")
-                    Text("")
-                    NavigationLink(destination: CharacterChoiceView()){
-                        Text("Get Started")
-                            .foregroundStyle(.black)
-                            .padding(.horizontal, 20)
-                            .padding(.vertical, 10)
-                        
+                
+                ZStack{
+                    //-MARK: Background
+                    LinearGradient(colors: [Color.blue, Color.green], startPoint: .bottom, endPoint: .top)
+                        .ignoresSafeArea()
+                    
+                    //-MARK: Content
+                    VStack(alignment: .leading, spacing: 10){
+                        Text("The app that will take your life to the next level \n Are you ready to level up?")
+                        Text("")
+                        NavigationLink(destination: CharacterChoiceView()){
+                            Text("Get Started")
+                                .foregroundStyle(.black)
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 10)
+                            
+                        }
+                        .buttonStyle(.bordered)
+                        .buttonBorderShape(.capsule)
                     }
-                    .buttonStyle(.bordered)
-                    .buttonBorderShape(.capsule)
                 }
-            }
-            .navigationTitle("LevelUp Adventure")
+                .navigationTitle("LevelUp Adventure")
+            // }
         }
     }
 }
 
 #Preview {
     ContentView()
+        .environment(PlayerStore())
 }

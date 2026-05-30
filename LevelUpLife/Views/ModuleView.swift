@@ -25,7 +25,15 @@ struct ModuleView: View {
                     .bold()
                 
                 //TODO: Göra EN XP bar
-                Text("XP \(character.xp)/100")
+
+                
+                ProgressView(value: Double(character.xp), total: 100) {
+                    Text("XP \(character.xp)/100")
+                        .frame(alignment: .trailing)
+                }
+                .progressViewStyle(.linear)
+                    .padding()
+                    
                 
                 Text("Stats")
                     .font(.title)
